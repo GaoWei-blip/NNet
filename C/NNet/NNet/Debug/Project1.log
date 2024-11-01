@@ -1,0 +1,9 @@
+﻿  layer.cpp
+  main.cpp
+  neuron.cpp
+  正在生成代码...
+E:\1_gaowei\3.算法\1.算法学习\C++\NNet\main.cpp(199,53): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+E:\1_gaowei\3.算法\1.算法学习\C++\NNet\main.cpp(206,43): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+E:\1_gaowei\3.算法\1.算法学习\C++\NNet\main.cpp(211,66): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+E:\1_gaowei\3.算法\1.算法学习\C++\NNet\main.cpp(290,28): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+  Project1.vcxproj -> E:\1_gaowei\3.算法\1.算法学习\C++\NNet\Debug\NNet.exe
