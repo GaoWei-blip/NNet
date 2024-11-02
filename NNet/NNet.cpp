@@ -26,7 +26,8 @@ NNet::NNet(int num_layers, vector<int> num_neurons):num_layers(num_layers), num_
 
 void NNet::initialize_weights() {
 	// random seed
-    srand(static_cast<unsigned>(time(nullptr)));
+    //srand(static_cast<unsigned>(time(nullptr)));
+	srand(static_cast<unsigned>(3407));
 
 	for (int i = 0; i < num_layers - 1; i++){            // the last layer has no weight output 
 		for (int j = 0; j < num_neurons[i]; j++){

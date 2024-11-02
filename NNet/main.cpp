@@ -65,6 +65,7 @@ int main(void) {
 	
 	// 3.Train
 	Trainer trainer = Trainer(net, dataset);
+	printf("======================Start training...====================== \n");
 	trainer.train_neural_net();
 
 

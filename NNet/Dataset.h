@@ -27,7 +27,7 @@ public:
 	Dataset(const string& filename, float trainRatio=0.8);
 	~Dataset() {};
 
-	void splitTrainVal(float trainRatio);
+	void splitTrainVal(float trainRatio, bool isNorm);
 
 };
 
