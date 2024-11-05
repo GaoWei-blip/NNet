@@ -33,7 +33,7 @@ void NNet::initialize_weights() {
 		for (int j = 0; j < num_neurons[i]; j++){
 			for (int k = 0; k < num_neurons[i + 1]; k++) {
 				layers[i].neurons[j].out_weights[k] = static_cast<float>(rand()) / RAND_MAX;
-				printf("Layer %d:w[%d][%d]: %f\n", i + 1, k + 1, j+1,  layers[i].neurons[j].out_weights[k]);
+				printf("Layer %d:w[%d][%d]: %f\n", i + 1, k + 1, j + 1, layers[i].neurons[j].out_weights[k]);
 				layers[i].neurons[j].dw[k] = 0.0;
 			}
 			if (i > 0) {

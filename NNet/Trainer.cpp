@@ -17,7 +17,7 @@ void Trainer::train_neural_net()
 			feed_input(i);
 			forward_prop();
 			epoch_cost += compute_cost(i);
-			//printf("Epoch [%i][%i] Cost: %f\n", it, i, epoch_cost);
+			printf("Epoch [%i][%i] Cost: %f\n", it + 1, i, epoch_cost);
 			back_prop(i);
 		}
 		//printf("Epoch [%i] Cost: %f\n", it, epoch_cost / static_cast<int>(dataset.trainX.size()));
@@ -87,13 +87,9 @@ void Trainer::back_prop(int p)
 		for (int k = 0; k < num_neurons[num_layers - 2]; k++)
 		{
 			net.layers[num_layers - 2].neurons[k].dw[j] = net.layers[num_layers - 1].neurons[j].dz * net.layers[num_layers - 2].neurons[k].actv;
-			printf("w[%i][%i]:%f\n", num_layers - 2, k, net.layers[num_layers - 2].neurons[k].out_weights[j]);
-			net.layers[num_layers - 2].neurons[k].out_weights[j] -= alpha * net.layers[num_layers - 2].neurons[k].dw[j];
-			printf("w[%i][%i]:%f\n", num_layers - 2, k, net.layers[num_layers - 2].neurons[k].out_weights[j]);
 		}
 
 		net.layers[num_layers - 1].neurons[j].dbias = net.layers[num_layers - 1].neurons[j].dz;
-		net.layers[num_layers - 1].neurons[j].bias -= alpha * net.layers[num_layers - 1].neurons[j].dbias;
 	}
 
 	// Hidden Layers
@@ -101,6 +97,7 @@ void Trainer::back_prop(int p)
 	{
 		for (int j = 0; j < num_neurons[i]; j++)
 		{
+			net.layers[i].neurons[j].dz = 0;
 			for (int k = 0; k < num_neurons[i + 1]; k++) { 
 				net.layers[i].neurons[j].dz += net.layers[i].neurons[j].dw[k] * net.layers[i + 1].neurons[k].dz * 
 					net.layers[i].neurons[j].z * (1 - net.layers[i].neurons[j].z);
@@ -109,11 +106,12 @@ void Trainer::back_prop(int p)
 			for (int k = 0; k < num_neurons[i - 1]; k++)
 			{
 				net.layers[i - 1].neurons[k].dw[j] = net.layers[i].neurons[j].dz * net.layers[i - 1].neurons[k].actv;
-				net.layers[i - 1].neurons[k].out_weights[j] -= alpha * net.layers[i - 1].neurons[k].dw[j];
 			}
 
 			net.layers[i].neurons[j].dbias = net.layers[i].neurons[j].dz;
-			net.layers[i].neurons[j].bias -= alpha * net.layers[i].neurons[j].dbias;
 		}
 	}
+
+	// update weights and biases
+
 }
