@@ -28,17 +28,17 @@ int main(void) {
 	vector<vector<float>> valX = dataset.valX;
 	vector<vector<float>> valY = dataset.valY;
 
-	cout << "The number of dataset:" << dataset.dataList.size() << endl;
-	cout << "The number of trainX:" << trainX.size() << endl;
-	cout << "The number of trainY:" << trainY.size() << endl;
-	cout << "The number of valX:" << valX.size() << endl;
-	cout << "The number of valY:" << valY.size() << endl;
+	//cout << "The number of dataset:" << dataset.dataList.size() << endl;
+	//cout << "The number of trainX:" << trainX.size() << endl;
+	//cout << "The number of trainY:" << trainY.size() << endl;
+	//cout << "The number of valX:" << valX.size() << endl;
+	//cout << "The number of valY:" << valY.size() << endl;
 
-	// print a piece of data
-	for (int i = 0; i < trainX[0].size(); ++i) {
-		cout << "The number of trainX[0][" << i << "]:" << trainX[0][i] << endl;
-	}
-	cout << "The number of trainY[0]:" << trainY[0][0] << endl;
+	//// print a piece of data
+	//for (int i = 0; i < trainX[0].size(); ++i) {
+	//	cout << "The number of trainX[0][" << i << "]:" << trainX[0][i] << endl;
+	//}
+	//cout << "The number of trainY[0]:" << trainY[0][0] << endl;
 
 	// ===============================================================
 

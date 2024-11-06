@@ -10,7 +10,7 @@
 
 ## 2. 理解网络结构和待学习参数
 
-![network](.\images\network.png)
+![network](./images/network.png)
 
 上图是一个 输入为2维，输出为1维的3层简单神经网络，w和bias是该网络的学习参数，具体计算流程如下：
 
@@ -22,6 +22,8 @@ input
 $$
 A1=X=[x_1,x_2]
 $$
+
+
 Weights
 $$
 \mathbf{W_1} = \begin{bmatrix} w_{11}^{(1)} & w_{12}^{(1)} \\ w_{21}^{(1)} & w_{22}^{(1)} \\ w_{31}^{(1)} & w_{32}^{(1)} \end{bmatrix}
@@ -112,11 +114,14 @@ $$
 >
 > - 这里将股价预测看成一个纯粹的回归问题，输入是4维（Open、High、Low、Volume）、输出1维（Close）
 
-构建一个2层神经网络，第一层神经元数5，第二层神经元数3
+构建一个3层神经网络，隐藏层神经元数3
 
 训练结果如图：
+
+![trian](./images/trian.png)
 
 
 
 测试结果如图：
 
+![trian](./images/pred.png)
