@@ -3,7 +3,7 @@
 #include <sstream>
 #include <iostream>
 
-Dataset::Dataset(const string& filename, float trainRatio) {
+Dataset::Dataset(const string& filename) {
 	ifstream file(filename);
 
 	if (!file.is_open()) {
@@ -37,8 +37,6 @@ Dataset::Dataset(const string& filename, float trainRatio) {
 	}
 
 	file.close();
-
-	splitTrainVal(trainRatio, false);
 }
 
 void Dataset::splitTrainVal(float trainRatio, bool isNorm) {
@@ -94,5 +92,4 @@ void Dataset::splitTrainVal(float trainRatio, bool isNorm) {
 			valY.push_back(y);
 		}
 	}
-
 }

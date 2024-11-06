@@ -24,10 +24,10 @@ public:
 	vector<vector<float>> valX;
 	vector<vector<float>> valY;
 
-	Dataset(const string& filename, float trainRatio=0.8);
+	Dataset(const string& filename);
 	~Dataset() {};
 
-	void splitTrainVal(float trainRatio, bool isNorm);
+	void splitTrainVal(float trainRatio = 0.8f, bool isNorm=false);
 
 };
 

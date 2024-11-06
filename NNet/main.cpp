@@ -15,17 +15,14 @@ using namespace std;
 int main(void) {
 
 	int num_layers = 0;           // the number of layers in the neural network
-	int num_hidden_layers;    // the number of hidden layers in the neural network
-	vector<int> num_neurons;  // the number of neurons in each layer
-
-	//float alpha;                                      // learning rate
-	//float* cost;                                      // the cost or loss value
-	//float full_cost;                                  // the full cost value
+	int num_hidden_layers;        // the number of hidden layers in the neural network
+	vector<int> num_neurons;      // the number of neurons in each layer
 
 	// ===============================================================
 	
 	// 1.Reading Dataset
 	Dataset dataset = Dataset("../stock_price_data.csv");
+	dataset.splitTrainVal(0.8f, true);
 	vector<vector<float>> trainX = dataset.trainX;
 	vector<vector<float>> trainY = dataset.trainY;
 	vector<vector<float>> valX = dataset.valX;
@@ -51,12 +48,12 @@ int main(void) {
 
 	num_layers = num_hidden_layers + 2;
 	num_neurons.resize(num_layers);
-	num_neurons[0] = trainX[0].size();
-	for (int i = 1; i < num_layers-1; i++) {
+	num_neurons[0] = static_cast<int>(trainX[0].size());
+	for (int i = 1; i < num_layers - 1; i++) {
 		cout << "Enter number of neurons in hidden layer[" << i << "]: " << endl;
 		cin >> num_neurons[i];
 	}
-	num_neurons[num_layers - 1] = valY[0].size();
+	num_neurons[num_layers - 1] = static_cast<int>(valY[0].size());
 	cout << endl;
 
 	NNet net = NNet(num_layers, num_neurons);
@@ -64,16 +61,44 @@ int main(void) {
 	// ===============================================================
 	
 	// 3.Train
-	Trainer trainer = Trainer(net, dataset);
+	Trainer trainer = Trainer(net, dataset, 100, 0.001f);
 	printf("======================Start training...====================== \n");
 	trainer.train_neural_net();
 
-
-
 	// ===============================================================
 
-	// 4.Test
-	
+	// 4.Pred
+	printf("======================Start preding...====================== \n");
+	float open;
+	float high;
+	float low;
+	float volume;
+	vector<float> pred_input;
+
+	while (1)
+	{
+		cout << "Enter open price:";
+		cin >> open;
+		pred_input.push_back(open);
+
+		cout << "Enter high price:";
+		cin >> high;
+		pred_input.push_back(high);
+
+		cout << "Enter low price:";
+		cin >> low;
+		pred_input.push_back(low);
+
+		cout << "Enter volume:";
+		cin >> volume;
+		pred_input.push_back(volume);
+
+		float pred_result = trainer.pred(pred_input);
+
+		cout << "Pred Close Price: " << pred_result << endl;
+
+		cout << "---------" << endl;
+	}
 
 }
 

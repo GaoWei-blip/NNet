@@ -1,9 +1,9 @@
 #include "Neuron.h"
 
-Neuron::Neuron(int num_out_weights)
-    : actv(0), bias(0), z(0), dactv(0), dbias(0), dz(0) {
-    out_weights.resize(num_out_weights, 0.0f);
-    dw.resize(num_out_weights, 0.0f);
+Neuron::Neuron(int num_input_weights)
+    : actv(0), bias(0), z(0), dbias(0), dz(0) {
+    w.resize(num_input_weights, 0.0f);
+    dw.resize(num_input_weights, 0.0f);
 }
 
 Neuron::~Neuron() {

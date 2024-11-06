@@ -32,7 +32,7 @@ $$
 $$
 Weighted Sum
 $$
-\mathbf{Z_2} = \mathbf{W_1} \cdot \mathbf{X}^T + \mathbf{B_2} = \begin{bmatrix} w_{11}^{(1)}x_1 + w_{12}^{(1)}x_2 + b_1^{(2)} \\ w_{21}^{(1)}x_1 + w_{22}^{(1)}x_2 + b_2^{(2)} \\ w_{31}^{(1)}x_1 + w_{32}^{(1)}x_2 + b_3^{(2)} \end{bmatrix}
+\mathbf{Z_2} = \mathbf{W_1} \cdot \mathbf{A1}^T + \mathbf{B_2} = \begin{bmatrix} w_{11}^{(1)}a_1^{(1)} + w_{12}^{(1)}a_2^{(1)} + b_1^{(2)} \\ w_{21}^{(1)}a_1^{(1)} + w_{22}^{(1)}a_2^{(1)} + b_2^{(2)} \\ w_{31}^{(1)}a_1^{(1)} + w_{32}^{(1)}a_2^{(1)} + b_3^{(2)} \end{bmatrix}
 $$
 Activate (ReLU或Sigmoid)
 $$
@@ -58,6 +58,8 @@ Activate (Sigmoid)
 $$
 \hat{Y} = A_3 =\sigma(Z_3) =\begin{bmatrix} \hat{y_1} \\ \hat{y_2} \end{bmatrix}
 $$
+> NOTE: When solving regression problems,  $A3=Z_3$ 
+
 Calculate loss (assuming the Mean Squared Error (MSE) loss function or Cross Entropy Loss function is used)
 $$
 {MSE}\_\text{Loss} = \frac{1}{2m} \sum_{i=1}^m (\hat{y_i} - y_i)^2 \\
@@ -97,9 +99,9 @@ $$
 
 Calculate gradients and update weights and biases, assuming the use of sigmoid activation function.
 $$
-\delta^{(2)} = \frac{\partial \text{Loss}}{\partial Z_2} = \frac{\partial \text{Loss}}{\partial Z_3} \cdot \frac{\partial Z_3}{\partial A_2} \cdot \frac{\partial A_2}{\partial Z_2} = (\mathbf{W_2} \cdot \delta_3) \odot \sigma'(\mathbf{Z_2})=\begin{bmatrix} \delta_1^{(2)} \\ \delta_2^{(2)} \\ \delta_3^{(2)} \end{bmatrix} \\
+\delta^{(2)} = \frac{\partial \text{Loss}}{\partial Z_2} = \frac{\partial \text{Loss}}{\partial Z_3} \cdot \frac{\partial Z_3}{\partial A_2} \cdot \frac{\partial A_2}{\partial Z_2} = (\delta_3 \cdot \mathbf{W_2}^T) \odot \sigma'(\mathbf{Z_2})=\begin{bmatrix} (w_{11}^{(2)}\delta_1^{(3)} + w_{21}^{(2)}\delta_2^{(3)})z_1^{(2)}(1-z_1^{(2)}) \\ (w_{12}^{(2)}\delta_1^{(3)} + w_{22}^{(2)}\delta_2^{(3)})z_2^{(2)}(1-z_2^{(2)})  \\ (w_{13}^{(2)}\delta_1^{(3)} + w_{23}^{(2)}\delta_2^{(3)})z_3^{(2)}(1-z_3^{(2)})  \end{bmatrix} = \begin{bmatrix} \delta_1^{(2)} \\ \delta_2^{(2)} \\ \delta_3^{(2)} \end{bmatrix} \\
 
-W_1 := W_1 - \alpha \cdot \frac{\partial Loss}{\partial W_1}=W_1 - \alpha \cdot \frac{\partial \text{Loss}}{\partial Z_2} \cdot \frac{\partial Z_2}{\partial W_1} = W_1 - \alpha \cdot \delta^{(2)} \cdot \mathbf{X}=\begin{bmatrix} w_{11}^{(1)}-\alpha\delta_1^{(2)}x1 & w_{12}^{(1)}-\alpha\delta_1^{(2)}x2 \\ w_{21}^{(1)}-\alpha\delta_2^{(2)}x1 & w_{22}^{(1)}-\alpha\delta_2^{(2)}x2 \\ w_{31}^{(1)}-\alpha\delta_3^{(2)}x1 & w_{32}^{(1)}-\alpha\delta_3^{(2)}x2\end{bmatrix} \\
+W_1 := W_1 - \alpha \cdot \frac{\partial Loss}{\partial W_1}=W_1 - \alpha \cdot \frac{\partial \text{Loss}}{\partial Z_2} \cdot \frac{\partial Z_2}{\partial W_1} = W_1 - \alpha \cdot \delta^{(2)} \cdot \mathbf{A1}=\begin{bmatrix} w_{11}^{(1)}-\alpha\delta_1^{(2)}a_1^{(1)} & w_{12}^{(1)}-\alpha\delta_1^{(2)}a_2^{(1)} \\ w_{21}^{(1)}-\alpha\delta_2^{(2)}a_1^{(1)} & w_{22}^{(1)}-\alpha\delta_2^{(2)}a_2^{(1)} \\ w_{31}^{(1)}-\alpha\delta_3^{(2)}a_1^{(1)} & w_{32}^{(1)}-\alpha\delta_3^{(2)}a_2^{(1)}\end{bmatrix} \\
 
 B_2 := B_2 - \alpha \cdot \frac{\partial Loss}{\partial B_2}=B2-\alpha \cdot\delta^{(2)}
 $$
@@ -108,7 +110,7 @@ $$
 
 > - `stock_price_data.txt` 包含100条模拟的股价预测训练数据，每行包括日期、日期时间戳（timestamp）、开盘价 (Open)、最高价 (High)、最低价 (Low)、收盘价 (Close) 和交易量 (Volume)
 >
-> - 这里将股价预测看成一个纯粹的回归问题，输入是5维（timestamp、Open、High、Low、Volume）、输出1维（Close）
+> - 这里将股价预测看成一个纯粹的回归问题，输入是4维（Open、High、Low、Volume）、输出1维（Close）
 
 构建一个2层神经网络，第一层神经元数5，第二层神经元数3
 

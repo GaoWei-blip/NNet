@@ -30,15 +30,15 @@ void NNet::initialize_weights() {
 	srand(static_cast<unsigned>(3407));
 
 	for (int i = 0; i < num_layers - 1; i++){            // the last layer has no weight output 
-		for (int j = 0; j < num_neurons[i]; j++){
+		for (int j = 0; j < num_neurons[i]; j++) {
 			for (int k = 0; k < num_neurons[i + 1]; k++) {
-				layers[i].neurons[j].out_weights[k] = static_cast<float>(rand()) / RAND_MAX;
-				printf("Layer %d:w[%d][%d]: %f\n", i + 1, k + 1, j + 1, layers[i].neurons[j].out_weights[k]);
+				layers[i].neurons[j].w[k] = static_cast<float>(rand()) / RAND_MAX;
+				//printf("(%d)w[%d][%d]: %f\n", i + 1, k + 1, j + 1, layers[i].neurons[j].w[k]);
 				layers[i].neurons[j].dw[k] = 0.0;
 			}
 			if (i > 0) {
 				layers[i].neurons[j].bias = static_cast<float>(rand()) / RAND_MAX;
-				printf("Layer %d:bias[%d]: %f\n", i + 1, j + 1, layers[i].neurons[j].bias);
+				//printf("(%d):bias[%d]: %f\n", i + 1, j + 1, layers[i].neurons[j].bias);
 			}
 		}
 		printf("\n");
@@ -47,7 +47,7 @@ void NNet::initialize_weights() {
 	// the last layer has bias
 	for (int j = 0; j < num_neurons[num_layers - 1]; j++) {
 		layers[num_layers - 1].neurons[j].bias = static_cast<float>(rand()) / RAND_MAX;
-		printf("Layer %d bias[%d]: %f\n", num_layers, j+1, layers[num_layers - 1].neurons[j].bias);
+		//printf("(%d)bias[%d]: %f\n", num_layers, j+1, layers[num_layers - 1].neurons[j].bias);
 	}
 	
 	

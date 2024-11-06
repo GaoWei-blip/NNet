@@ -8,19 +8,18 @@ using namespace std;
 class Neuron {
 public:
     // forward
-    float actv;                            // current layer activation output 
-    vector<float> out_weights;             // current layer weight
+    vector<float> w;                       // current layer input weights
     float bias;
-    float z;                               // current layer output z = sum(out_weights¡Áactv)+bias
+    float z;                               // current layer output z = sum(w¡Ápre_layer_actv)+bias
+    float actv;                            // current layer activation output
 
     // derivative 
-    float dactv;
     vector<float> dw;
     float dbias;
     float dz;
 
     Neuron();
-    Neuron(int num_out_weights);
+    Neuron(int num_input_weights);
     ~Neuron();
 };
 
