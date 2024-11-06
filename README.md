@@ -1,22 +1,22 @@
-## 基于C++的简单神经网络-股价预测为例（包含C的代码）
+## A simple neural network based on - stock price prediction as an example(C++/C)
 
-## 1.主要模块
+## 1. Main Modules
 
-- `Neuron.h`：用于声明神经元（`Neuron`）类和构造函数
-- `Layer.h`：用于声明网络层（`Layer`）类和构造函数
-- `NNet.h`：用于声明神经网络（`Neural Network`）类和构造及初始化函数
-- `Dataset.h`：用于声明数据集（`Dataset`）类和构造函数
-- `Trainer.h`：用于声明神经网络前后向传播（`Forward`和`Backpropagation`）类和相关的函数
+- `Neuron.h`：Used to declare neuron class and constructors
+- `Layer.h`：Used to declare network layer class and constructors
+- `NNet.h`：Used to declare neural network class and construct and initialize functions
+- `Dataset.h`：Used to declare dataset class and constructors
+- `Trainer.h`：Used to declare the forward and backward propagation class and related functions of neural networks
 
-## 2. 理解网络结构和待学习参数
+## 2. Understand Network Structure and Parameters
 
 ![network](./images/network.png)
 
-上图是一个 输入为2维，输出为1维的3层简单神经网络，w和bias是该网络的学习参数，具体计算流程如下：
+The above figure shows a 3-layer simple neural network with 2D input and 1D output. w and bias are the learning parameters of the network. The specific calculation process is as follows:
 
-**前向传播**
+**Forward propagation**
 
-（输入层-隐藏层）
+(Input Layer - Hidden Layer)
 
 input
 
@@ -43,13 +43,13 @@ Weighted Sum
 $$
 \mathbf{Z_2} = \mathbf{W_1} \cdot \mathbf{A1}^T + \mathbf{B_2} = \begin{bmatrix} w_{11}^{(1)}a_1^{(1)} + w_{12}^{(1)}a_2^{(1)} + b_1^{(2)} \\ w_{21}^{(1)}a_1^{(1)} + w_{22}^{(1)}a_2^{(1)} + b_2^{(2)} \\ w_{31}^{(1)}a_1^{(1)} + w_{32}^{(1)}a_2^{(1)} + b_3^{(2)} \end{bmatrix}
 $$
-Activate (ReLU或Sigmoid)
+Activate (ReLU or Sigmoid)
 
 
 $$
 \mathbf{A_2} = \sigma(\mathbf{Z_2}) = \begin{bmatrix} \sigma(z_1) \\ \sigma(z_2) \\ \sigma(z_3) \end{bmatrix} = \begin{bmatrix} a_1^{(2)} \\ a_2^{(2)} \\ a_3^{(2)} \end{bmatrix}
 $$
-（隐藏层-输出层）
+(Hidden layer - Output layer)
 
 Weights
 
@@ -86,9 +86,9 @@ $$
 or \\
 {CE}\_\text{Loss}= -\frac{1}{m} \sum_{i=1}^m \left[ y_i \log(\hat{y}_i) + (1 - y_i) \log(1 - \hat{y}_i) \right]
 $$
-**后向传播**
+**Backward propagation**
 
-（输出层-隐藏层）
+(Output Layer - Hidden Layer)
 
 Calculate gradients and update weights and biases. Among them, $\alpha$ is the learning rate.
 
@@ -123,7 +123,7 @@ $$
 > \sigma'(x) = - (1 + e^{-x})^{-2} \cdot (-e^{-x}) = \frac{e^{-x}}{(1 + e^{-x})^2}=\sigma(x) \odot (1 - \sigma(x))
 > $$
 
-（隐藏层-输入层）
+(Hidden Layer - Input Layer)
 
 Calculate gradients and update weights and biases, assuming the use of sigmoid activation function.
 
@@ -136,20 +136,23 @@ W_1 := W_1 - \alpha \cdot \frac{\partial Loss}{\partial W_1}=W_1 - \alpha \cdot 
 B_2 := B_2 - \alpha \cdot \frac{\partial Loss}{\partial B_2}=B2-\alpha \cdot\delta^{(2)}
 $$
 
-> 3.股价预测为例
+## Stock Price Prediction 
 
-> - `stock_price_data.txt` 包含100条模拟的股价预测训练数据，每行包括日期、日期时间戳（timestamp）、开盘价 (Open)、最高价 (High)、最低价 (Low)、收盘价 (Close) 和交易量 (Volume)
+> - `stock_price_data.txt` contains 100 simulated stock price prediction training data, each row including date, date timestamp, opening price (Open), high price (High), low price (Low), closing price (Close), and trading volume (Volume)
 >
-> - 这里将股价预测看成一个纯粹的回归问题，输入是4维（Open、High、Low、Volume）、输出1维（Close）
+> - Here, stock price prediction is viewed as a pure regression problem, with inputs of 4 dimensions (Open, High, Low, Volume) and outputs of 1 dimension (Close)
 
-构建一个3层神经网络，隐藏层神经元数3
+Build a 3-layer neural network with 3 hidden layer neurons
+The training results are shown in the figure:
 
-训练结果如图：
+
 
 ![trian](./images/trian.png)
 
 
 
-测试结果如图：
+The test results are shown in the figure:
+
+
 
 ![trian](./images/pred.png)
