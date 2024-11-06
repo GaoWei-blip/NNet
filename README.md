@@ -19,50 +19,68 @@
 （输入层-隐藏层）
 
 input
-$$
-A1=X=[x_1,x_2]
-$$
 
+
+$$
+A_1=X=[x_1,x_2]
+$$
 
 Weights
+
+
 $$
 \mathbf{W_1} = \begin{bmatrix} w_{11}^{(1)} & w_{12}^{(1)} \\ w_{21}^{(1)} & w_{22}^{(1)} \\ w_{31}^{(1)} & w_{32}^{(1)} \end{bmatrix}
 $$
 Biases
+
+
 $$
 \mathbf{B_2} = \begin{bmatrix} b_1^{(2)} \\ b_2^{(2)} \\ b_3^{(2)} \end{bmatrix}
 $$
 Weighted Sum
+
+
 $$
 \mathbf{Z_2} = \mathbf{W_1} \cdot \mathbf{A1}^T + \mathbf{B_2} = \begin{bmatrix} w_{11}^{(1)}a_1^{(1)} + w_{12}^{(1)}a_2^{(1)} + b_1^{(2)} \\ w_{21}^{(1)}a_1^{(1)} + w_{22}^{(1)}a_2^{(1)} + b_2^{(2)} \\ w_{31}^{(1)}a_1^{(1)} + w_{32}^{(1)}a_2^{(1)} + b_3^{(2)} \end{bmatrix}
 $$
 Activate (ReLU或Sigmoid)
+
+
 $$
 \mathbf{A_2} = \sigma(\mathbf{Z_2}) = \begin{bmatrix} \sigma(z_1) \\ \sigma(z_2) \\ \sigma(z_3) \end{bmatrix} = \begin{bmatrix} a_1^{(2)} \\ a_2^{(2)} \\ a_3^{(2)} \end{bmatrix}
 $$
 （隐藏层-输出层）
 
 Weights
+
+
 $$
 \mathbf{W_2} = \begin{bmatrix} w_{11}^{(2)} & w_{12}^{(2)} & w_{13}^{(2)} \\ w_{21}^{(2)} & w_{22}^{(2)} & w_{23}^{(2)} \end{bmatrix}
 $$
 Biases
+
+
 $$
 \mathbf{B_3} = \begin{bmatrix} b_1^{(3)} \\ b_2^{(3)} \end{bmatrix}
 $$
 Weighted Sum
+
+
 $$
 Z_3 = \mathbf{W_2} \cdot \mathbf{A_2} + \mathbf{B_3} =\begin{bmatrix} w_{11}^{(2)}a_{1}^{(2)} + w_{12}^{(2)}a_{2}^{(2)} + w_{13}^{(2)}a_{3}^{(2)} + b_1^{(3)} \\ w_{21}^{(2)}a_{1}^{(2)} + w_{22}^{(2)}a_{2}^{(2)} + w_{23}^{(2)}a_{3}^{(2)} + b_2^{(3)} \end{bmatrix}
 $$
 
-
 Activate (Sigmoid)
+
+
 $$
 \hat{Y} = A_3 =\sigma(Z_3) =\begin{bmatrix} \hat{y_1} \\ \hat{y_2} \end{bmatrix}
 $$
 > NOTE: When solving regression problems,  $A3=Z_3$ 
 
 Calculate loss (assuming the Mean Squared Error (MSE) loss function or Cross Entropy Loss function is used)
+
+
 $$
 {MSE}\_\text{Loss} = \frac{1}{2m} \sum_{i=1}^m (\hat{y_i} - y_i)^2 \\
 or \\
@@ -73,6 +91,8 @@ $$
 （输出层-隐藏层）
 
 Calculate gradients and update weights and biases. Among them, $\alpha$ is the learning rate.
+
+
 $$
 \delta^{(3)} = \frac{\partial \text{Loss}}{\partial Z_3} = (\hat{Y} - Y) = A_3 - Y = \begin{bmatrix} \delta_1^{(3)}  \\ \delta_2^{(3)}  \end{bmatrix} \\
 
@@ -81,10 +101,14 @@ W_2 = W_2 - \alpha \cdot \frac{\partial \text{Loss}}{\partial W_2} = W2 - \alpha
 B_3 = B_3 - \alpha \cdot \frac{\partial \text{Loss}}{\partial B_3}=B_3 - \alpha \cdot \frac{\partial \text{Loss}}{\partial Z_3}\cdot \frac{\partial Z_3}{\partial B_3} = B3 - \alpha \cdot \delta^{(3)} = \begin{bmatrix} b_1^{(3)} - \alpha \delta_1^{(3)} \\ b_2^{(3)} - \alpha \delta_2^{(3)} \end{bmatrix}
 $$
 > MSE Loss function gradient, usually not use activation function:
+>
+> 
 > $$
 > \frac{\partial \text{L}}{\partial z} = \frac{\partial \text{L}}{\partial \hat{y}_i} = \hat{y_i} - y_i
 > $$
 > Cross Entropy Loss function gradient (log x=ln x), usually using sigmoid activation function:
+>
+> 
 > $$
 > \frac{\partial L}{\partial \hat{y}_i} = - \left( \frac{y_i}{\hat{y}_i} - \frac{1 - y_i}{1 - \hat{y}_i} \right) \\
 > \frac{\partial L}{\partial z} = \frac{\partial L}{\partial \hat{y}_i} \cdot \frac{\partial \hat{y}_i}{\partial z} \\
@@ -92,6 +116,8 @@ $$
 > \frac{\partial L}{\partial z} = \hat{y}_i - y_i
 > $$
 > Sigmoid Activation function gradient:
+>
+> 
 > $$
 > \sigma(x) = \frac{1}{1 + e^{-x}} = (1 + e^{-x})^{-1} \\
 > \sigma'(x) = - (1 + e^{-x})^{-2} \cdot (-e^{-x}) = \frac{e^{-x}}{(1 + e^{-x})^2}=\sigma(x) \odot (1 - \sigma(x))
@@ -100,6 +126,8 @@ $$
 （隐藏层-输入层）
 
 Calculate gradients and update weights and biases, assuming the use of sigmoid activation function.
+
+
 $$
 \delta^{(2)} = \frac{\partial \text{Loss}}{\partial Z_2} = \frac{\partial \text{Loss}}{\partial Z_3} \cdot \frac{\partial Z_3}{\partial A_2} \cdot \frac{\partial A_2}{\partial Z_2} = (\delta_3 \cdot \mathbf{W_2}^T) \odot \sigma'(\mathbf{Z_2})=\begin{bmatrix} (w_{11}^{(2)}\delta_1^{(3)} + w_{21}^{(2)}\delta_2^{(3)})z_1^{(2)}(1-z_1^{(2)}) \\ (w_{12}^{(2)}\delta_1^{(3)} + w_{22}^{(2)}\delta_2^{(3)})z_2^{(2)}(1-z_2^{(2)})  \\ (w_{13}^{(2)}\delta_1^{(3)} + w_{23}^{(2)}\delta_2^{(3)})z_3^{(2)}(1-z_3^{(2)})  \end{bmatrix} = \begin{bmatrix} \delta_1^{(2)} \\ \delta_2^{(2)} \\ \delta_3^{(2)} \end{bmatrix} \\
 
