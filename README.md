@@ -27,50 +27,51 @@ $$
 Weights
 
 $$
-W_1 = \begin{bmatrix} w_{11}^{(1)} & w_{12}^{(1)} \\ w_{21}^{(1)} & w_{22}^{(1)} \\ w_{31}^{(1)} & w_{32}^{(1)} \end{bmatrix}
+W_1 = \begin{bmatrix} w_{11}^{(1)} & w_{12}^{(1)} \\\\\\\\ w_{21}^{(1)} & w_{22}^{(1)} \\\\\\\\ w_{31}^{(1)} & w_{32}^{(1)} \end{bmatrix}
 $$
 
 Biases
 
 $$
-B_2 = \begin{bmatrix} b_1^{(2)} \\ b_2^{(2)} \\ b_3^{(2)} \end{bmatrix}
+B_2 = \begin{bmatrix} b_1^{(2)} \\\\\\\\ b_2^{(2)} \\\\\\\\ b_3^{(2)} \end{bmatrix}
 $$
 
 Weighted Sum
 
 $$
-Z_2 = W_1 \cdot A_1^T + B_2 = \begin{bmatrix} w_{11}^{(1)}a_1^{(1)} + w_{12}^{(1)}a_2^{(1)} + b_1^{(2)} \\ w_{21}^{(1)}a_1^{(1)} + w_{22}^{(1)}a_2^{(1)} + b_2^{(2)} \\ w_{31}^{(1)}a_1^{(1)} + w_{32}^{(1)}a_2^{(1)} + b_3^{(2)} \end{bmatrix}
+Z_2 = W_1 \cdot A_1^T + B_2 = \begin{bmatrix} w_{11}^{(1)}a_1^{(1)} + w_{12}^{(1)}a_2^{(1)} + b_1^{(2)} \\\\\\\\ w_{21}^{(1)}a_1^{(1)} + w_{22}^{(1)}a_2^{(1)} + b_2^{(2)} \\\\\\\\ w_{31}^{(1)}a_1^{(1)} + w_{32}^{(1)}a_2^{(1)} + b_3^{(2)} \end{bmatrix}
 $$
 
 Activate (ReLU or Sigmoid)
 
 $$
-A_2 = \sigma(Z_2) = \begin{bmatrix} \sigma(z_1) \\ \sigma(z_2) \\ \sigma(z_3) \end{bmatrix} = \begin{bmatrix} a_1^{(2)} \\ a_2^{(2)} \\ a_3^{(2)} \end{bmatrix}
+A_2 = \sigma(Z_2) = \begin{bmatrix} \sigma(z_1) \\\\\\\\ \sigma(z_2) \\\\\\\\ \sigma(z_3) \end{bmatrix} = \begin{bmatrix} a_1^{(2)} \\\\\\\\ a_2^{(2)} \\\\\\\\ a_3^{(2)} \end{bmatrix}
 $$
+
 (Hidden layer - Output layer)
 
 Weights
 
 $$
-W_2 = \begin{bmatrix} w_{11}^{(2)} & w_{12}^{(2)} & w_{13}^{(2)} \\ w_{21}^{(2)} & w_{22}^{(2)} & w_{23}^{(2)} \end{bmatrix}
+W_2 = \begin{bmatrix} w_{11}^{(2)} & w_{12}^{(2)} & w_{13}^{(2)} \\\\\\\\ w_{21}^{(2)} & w_{22}^{(2)} & w_{23}^{(2)} \end{bmatrix}
 $$
 
 Biases
 
 $$
-B_3 = \begin{bmatrix} b_1^{(3)} \\ b_2^{(3)} \end{bmatrix}
+B_3 = \begin{bmatrix} b_1^{(3)} \\\\\\\\ b_2^{(3)} \end{bmatrix}
 $$
 
 Weighted Sum
 
 $$
-Z_3 = W_2 \cdot A_2 + B_3 =\begin{bmatrix} w_{11}^{(2)}a_{1}^{(2)} + w_{12}^{(2)}a_{2}^{(2)} + w_{13}^{(2)}a_{3}^{(2)} + b_1^{(3)} \\ w_{21}^{(2)}a_{1}^{(2)} + w_{22}^{(2)}a_{2}^{(2)} + w_{23}^{(2)}a_{3}^{(2)} + b_2^{(3)} \end{bmatrix}
+Z_3 = W_2 \cdot A_2 + B_3 =\begin{bmatrix} w_{11}^{(2)}a_{1}^{(2)} + w_{12}^{(2)}a_{2}^{(2)} + w_{13}^{(2)}a_{3}^{(2)} + b_1^{(3)} \\\\\\\\ w_{21}^{(2)}a_{1}^{(2)} + w_{22}^{(2)}a_{2}^{(2)} + w_{23}^{(2)}a_{3}^{(2)} + b_2^{(3)} \end{bmatrix}
 $$
 
 Activate (Sigmoid)
 
 $$
-\hat{Y} = A_3 =\sigma(Z_3) =\begin{bmatrix} \hat{y_1} \\ \hat{y_2} \end{bmatrix}
+\hat{Y} = A_3 =\sigma(Z_3) =\begin{bmatrix} \hat{y_1} \\\\\\\\ \hat{y_2} \end{bmatrix}
 $$
 
 > NOTE: When solving regression problems,  $A3=Z_3$ 
@@ -90,19 +91,24 @@ $$
 Calculate gradients and update weights and biases. Among them, $\alpha$ is the learning rate.
 
 $$
-\delta^{(3)} = \frac{\partial \text{Loss}}{\partial Z_3} = (\hat{Y} - Y) = A_3 - Y = \begin{bmatrix} \delta_1^{(3)}  \\ \delta_2^{(3)}  \end{bmatrix} \\
-
-W_2 = W_2 - \alpha \cdot \frac{\partial \text{Loss}}{\partial W_2} = W2 - \alpha \cdot \frac{\partial \text{Loss}}{\partial Z_3} \cdot \frac{\partial Z_3}{\partial W_2}  = W2 - \alpha \cdot \delta^{(3)} \cdot \mathbf{A_2}^T  = \begin{bmatrix} w_{11}^{(2)} - \alpha \delta_1^{(3)}a_1^{(2)} & w_{12}^{(2)} - \alpha \delta_1^{(3)}a_2^{(2)} & w_{13}^{(2)} - \alpha \delta_1^{(3)}a_3^{(2)} \\ w_{21}^{(2)} - \alpha \delta_2^{(3)}a_1^{(2)} & w_{22}^{(2)} - \alpha \delta_2^{(3)}a_2^{(2)} & w_{23}^{(2)} - \alpha \delta_2^{(3)}a_3^{(2)} \end{bmatrix} \\
-
-B_3 = B_3 - \alpha \cdot \frac{\partial \text{Loss}}{\partial B_3}=B_3 - \alpha \cdot \frac{\partial \text{Loss}}{\partial Z_3}\cdot \frac{\partial Z_3}{\partial B_3} = B3 - \alpha \cdot \delta^{(3)} = \begin{bmatrix} b_1^{(3)} - \alpha \delta_1^{(3)} \\ b_2^{(3)} - \alpha \delta_2^{(3)} \end{bmatrix}
+\delta^{(3)} = \frac{\partial \text{Loss}}{\partial Z_3} = (\hat{Y} - Y) = A_3 - Y = \begin{bmatrix} \delta_1^{(3)}  \\\\\\\\ \delta_2^{(3)}  \end{bmatrix} 
+$$
 
 $$
+W_2 = W_2 - \alpha \cdot \frac{\partial \text{Loss}}{\partial W_2} = W2 - \alpha \cdot \frac{\partial \text{Loss}}{\partial Z_3} \cdot \frac{\partial Z_3}{\partial W_2}  = W2 - \alpha \cdot \delta^{(3)} \cdot \mathbf{A_2}^T  = \begin{bmatrix} w_{11}^{(2)} - \alpha \delta_1^{(3)}a_1^{(2)} & w_{12}^{(2)} - \alpha \delta_1^{(3)}a_2^{(2)} & w_{13}^{(2)} - \alpha \delta_1^{(3)}a_3^{(2)} \\\\\\\\ w_{21}^{(2)} - \alpha \delta_2^{(3)}a_1^{(2)} & w_{22}^{(2)} - \alpha \delta_2^{(3)}a_2^{(2)} & w_{23}^{(2)} - \alpha \delta_2^{(3)}a_3^{(2)} \end{bmatrix} 
+$$
+
+$$
+B_3 = B_3 - \alpha \cdot \frac{\partial \text{Loss}}{\partial B_3}=B_3 - \alpha \cdot \frac{\partial \text{Loss}}{\partial Z_3}\cdot \frac{\partial Z_3}{\partial B_3} = B3 - \alpha \cdot \delta^{(3)} = \begin{bmatrix} b_1^{(3)} - \alpha \delta_1^{(3)} \\\\\\\\ b_2^{(3)} - \alpha \delta_2^{(3)} \end{bmatrix}
+$$
+
 > MSE Loss function gradient, usually not use activation function:
 >
 > 
 > $$
 > \frac{\partial \text{L}}{\partial z} = \frac{\partial \text{L}}{\partial \hat{y}_i} = \hat{y_i} - y_i
 > $$
+> 
 > Cross Entropy Loss function gradient (log x=ln x), usually using sigmoid activation function:
 >
 > 
@@ -112,6 +118,7 @@ $$
 > \frac{\partial L}{\partial z} = - \left( \frac{y_i}{\hat{y}_i} - \frac{1 - y_i}{1 - \hat{y}_i} \right) \cdot \hat{y}_i (1 - \hat{y}_i) \\
 > \frac{\partial L}{\partial z} = \hat{y}_i - y_i
 > $$
+> 
 > Sigmoid Activation function gradient:
 >
 > 
@@ -126,10 +133,14 @@ Calculate gradients and update weights and biases, assuming the use of sigmoid a
 
 
 $$
-\delta^{(2)} = \frac{\partial \text{Loss}}{\partial Z_2} = \frac{\partial \text{Loss}}{\partial Z_3} \cdot \frac{\partial Z_3}{\partial A_2} \cdot \frac{\partial A_2}{\partial Z_2} = (\delta_3 \cdot \mathbf{W_2}^T) \odot \sigma'(\mathbf{Z_2})=\begin{bmatrix} (w_{11}^{(2)}\delta_1^{(3)} + w_{21}^{(2)}\delta_2^{(3)})z_1^{(2)}(1-z_1^{(2)}) \\ (w_{12}^{(2)}\delta_1^{(3)} + w_{22}^{(2)}\delta_2^{(3)})z_2^{(2)}(1-z_2^{(2)})  \\ (w_{13}^{(2)}\delta_1^{(3)} + w_{23}^{(2)}\delta_2^{(3)})z_3^{(2)}(1-z_3^{(2)})  \end{bmatrix} = \begin{bmatrix} \delta_1^{(2)} \\ \delta_2^{(2)} \\ \delta_3^{(2)} \end{bmatrix} \\
+\delta^{(2)} = \frac{\partial \text{Loss}}{\partial Z_2} = \frac{\partial \text{Loss}}{\partial Z_3} \cdot \frac{\partial Z_3}{\partial A_2} \cdot \frac{\partial A_2}{\partial Z_2} = (\delta_3 \cdot \mathbf{W_2}^T) \odot \sigma'(\mathbf{Z_2})=\begin{bmatrix} (w_{11}^{(2)}\delta_1^{(3)} + w_{21}^{(2)}\delta_2^{(3)})z_1^{(2)}(1-z_1^{(2)}) \\\\\\\\ (w_{12}^{(2)}\delta_1^{(3)} + w_{22}^{(2)}\delta_2^{(3)})z_2^{(2)}(1-z_2^{(2)})  \\\\\\\\ (w_{13}^{(2)}\delta_1^{(3)} + w_{23}^{(2)}\delta_2^{(3)})z_3^{(2)}(1-z_3^{(2)})  \end{bmatrix} = \begin{bmatrix} \delta_1^{(2)} \\\\\\\\ \delta_2^{(2)} \\\\\\\\ \delta_3^{(2)} \end{bmatrix} 
+$$
 
-W_1 := W_1 - \alpha \cdot \frac{\partial Loss}{\partial W_1}=W_1 - \alpha \cdot \frac{\partial \text{Loss}}{\partial Z_2} \cdot \frac{\partial Z_2}{\partial W_1} = W_1 - \alpha \cdot \delta^{(2)} \cdot \mathbf{A1}=\begin{bmatrix} w_{11}^{(1)}-\alpha\delta_1^{(2)}a_1^{(1)} & w_{12}^{(1)}-\alpha\delta_1^{(2)}a_2^{(1)} \\ w_{21}^{(1)}-\alpha\delta_2^{(2)}a_1^{(1)} & w_{22}^{(1)}-\alpha\delta_2^{(2)}a_2^{(1)} \\ w_{31}^{(1)}-\alpha\delta_3^{(2)}a_1^{(1)} & w_{32}^{(1)}-\alpha\delta_3^{(2)}a_2^{(1)}\end{bmatrix} \\
+$$
+W_1 := W_1 - \alpha \cdot \frac{\partial Loss}{\partial W_1}=W_1 - \alpha \cdot \frac{\partial \text{Loss}}{\partial Z_2} \cdot \frac{\partial Z_2}{\partial W_1} = W_1 - \alpha \cdot \delta^{(2)} \cdot \mathbf{A1}=\begin{bmatrix} w_{11}^{(1)}-\alpha\delta_1^{(2)}a_1^{(1)} & w_{12}^{(1)}-\alpha\delta_1^{(2)}a_2^{(1)} \\\\\\\\ w_{21}^{(1)}-\alpha\delta_2^{(2)}a_1^{(1)} & w_{22}^{(1)}-\alpha\delta_2^{(2)}a_2^{(1)} \\\\\\\\ w_{31}^{(1)}-\alpha\delta_3^{(2)}a_1^{(1)} & w_{32}^{(1)}-\alpha\delta_3^{(2)}a_2^{(1)}\end{bmatrix} 
+$$
 
+$$
 B_2 := B_2 - \alpha \cdot \frac{\partial Loss}{\partial B_2}=B2-\alpha \cdot\delta^{(2)}
 $$
 
