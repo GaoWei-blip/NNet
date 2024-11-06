@@ -45,51 +45,49 @@ $$
 Activate (ReLU or Sigmoid)
 
 $$
-\mathbf{A_2} = \sigma(\mathbf{Z_2}) = \begin{bmatrix} \sigma(z_1) \\ \sigma(z_2) \\ \sigma(z_3) \end{bmatrix} = \begin{bmatrix} a_1^{(2)} \\ a_2^{(2)} \\ a_3^{(2)} \end{bmatrix}
+A_2 = \sigma(Z_2) = \begin{bmatrix} \sigma(z_1) \\ \sigma(z_2) \\ \sigma(z_3) \end{bmatrix} = \begin{bmatrix} a_1^{(2)} \\ a_2^{(2)} \\ a_3^{(2)} \end{bmatrix}
 $$
 (Hidden layer - Output layer)
 
 Weights
 
+$$
+W_2 = \begin{bmatrix} w_{11}^{(2)} & w_{12}^{(2)} & w_{13}^{(2)} \\ w_{21}^{(2)} & w_{22}^{(2)} & w_{23}^{(2)} \end{bmatrix}
+$$
 
-$$
-\mathbf{W_2} = \begin{bmatrix} w_{11}^{(2)} & w_{12}^{(2)} & w_{13}^{(2)} \\ w_{21}^{(2)} & w_{22}^{(2)} & w_{23}^{(2)} \end{bmatrix}
-$$
 Biases
 
+$$
+B_3 = \begin{bmatrix} b_1^{(3)} \\ b_2^{(3)} \end{bmatrix}
+$$
 
-$$
-\mathbf{B_3} = \begin{bmatrix} b_1^{(3)} \\ b_2^{(3)} \end{bmatrix}
-$$
 Weighted Sum
 
-
 $$
-Z_3 = \mathbf{W_2} \cdot \mathbf{A_2} + \mathbf{B_3} =\begin{bmatrix} w_{11}^{(2)}a_{1}^{(2)} + w_{12}^{(2)}a_{2}^{(2)} + w_{13}^{(2)}a_{3}^{(2)} + b_1^{(3)} \\ w_{21}^{(2)}a_{1}^{(2)} + w_{22}^{(2)}a_{2}^{(2)} + w_{23}^{(2)}a_{3}^{(2)} + b_2^{(3)} \end{bmatrix}
+Z_3 = W_2 \cdot A_2 + B_3 =\begin{bmatrix} w_{11}^{(2)}a_{1}^{(2)} + w_{12}^{(2)}a_{2}^{(2)} + w_{13}^{(2)}a_{3}^{(2)} + b_1^{(3)} \\ w_{21}^{(2)}a_{1}^{(2)} + w_{22}^{(2)}a_{2}^{(2)} + w_{23}^{(2)}a_{3}^{(2)} + b_2^{(3)} \end{bmatrix}
 $$
 
 Activate (Sigmoid)
 
-
 $$
 \hat{Y} = A_3 =\sigma(Z_3) =\begin{bmatrix} \hat{y_1} \\ \hat{y_2} \end{bmatrix}
 $$
+
 > NOTE: When solving regression problems,  $A3=Z_3$ 
 
 Calculate loss (assuming the Mean Squared Error (MSE) loss function or Cross Entropy Loss function is used)
-
 
 $$
 {MSE}\_\text{Loss} = \frac{1}{2m} \sum_{i=1}^m (\hat{y_i} - y_i)^2 \\
 or \\
 {CE}\_\text{Loss}= -\frac{1}{m} \sum_{i=1}^m \left[ y_i \log(\hat{y}_i) + (1 - y_i) \log(1 - \hat{y}_i) \right]
 $$
+
 **Backward propagation**
 
 (Output Layer - Hidden Layer)
 
 Calculate gradients and update weights and biases. Among them, $\alpha$ is the learning rate.
-
 
 $$
 \delta^{(3)} = \frac{\partial \text{Loss}}{\partial Z_3} = (\hat{Y} - Y) = A_3 - Y = \begin{bmatrix} \delta_1^{(3)}  \\ \delta_2^{(3)}  \end{bmatrix} \\
@@ -97,6 +95,7 @@ $$
 W_2 = W_2 - \alpha \cdot \frac{\partial \text{Loss}}{\partial W_2} = W2 - \alpha \cdot \frac{\partial \text{Loss}}{\partial Z_3} \cdot \frac{\partial Z_3}{\partial W_2}  = W2 - \alpha \cdot \delta^{(3)} \cdot \mathbf{A_2}^T  = \begin{bmatrix} w_{11}^{(2)} - \alpha \delta_1^{(3)}a_1^{(2)} & w_{12}^{(2)} - \alpha \delta_1^{(3)}a_2^{(2)} & w_{13}^{(2)} - \alpha \delta_1^{(3)}a_3^{(2)} \\ w_{21}^{(2)} - \alpha \delta_2^{(3)}a_1^{(2)} & w_{22}^{(2)} - \alpha \delta_2^{(3)}a_2^{(2)} & w_{23}^{(2)} - \alpha \delta_2^{(3)}a_3^{(2)} \end{bmatrix} \\
 
 B_3 = B_3 - \alpha \cdot \frac{\partial \text{Loss}}{\partial B_3}=B_3 - \alpha \cdot \frac{\partial \text{Loss}}{\partial Z_3}\cdot \frac{\partial Z_3}{\partial B_3} = B3 - \alpha \cdot \delta^{(3)} = \begin{bmatrix} b_1^{(3)} - \alpha \delta_1^{(3)} \\ b_2^{(3)} - \alpha \delta_2^{(3)} \end{bmatrix}
+
 $$
 > MSE Loss function gradient, usually not use activation function:
 >
