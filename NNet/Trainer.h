@@ -13,7 +13,7 @@ public:
 	float alpha;
 	int epoch;
 	
-	Trainer(NNet net, Dataset dataset, int epoch=100, float alpha=0.001f);
+	Trainer(NNet& net, Dataset& dataset, int epoch=100, float alpha=0.001f);
 	~Trainer();
 
 	void feed_input(int i);

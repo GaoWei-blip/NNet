@@ -1,5 +1,7 @@
 .vs
 
-
-
-
+# Ignore all Debug/Release directories
+Debug/
+Release/
+x64/Debug/
+x64/Release/

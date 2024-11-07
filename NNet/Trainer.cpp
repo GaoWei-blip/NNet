@@ -1,6 +1,6 @@
 #include "Trainer.h"
 
-Trainer::Trainer(NNet net, Dataset dataset, int epoch, float alpha):net(net), dataset(dataset), alpha(alpha), epoch(epoch) {
+Trainer::Trainer(NNet& net, Dataset& dataset, int epoch, float alpha):net(net), dataset(dataset), alpha(alpha), epoch(epoch) {
 	cost.resize(net.num_neurons[net.num_layers - 1]);
 }
 
