@@ -104,24 +104,30 @@ $$
 
 > MSE Loss function gradient, usually not use activation function:
 >
-> 
+>
 > $$
 > \frac{\partial \text{L}}{\partial z} = \frac{\partial \text{L}}{\partial \hat{y}_i} = \hat{y_i} - y_i
 > $$
-> 
+>
 > Cross Entropy Loss function gradient (log x=ln x), usually using sigmoid activation function:
 >
-> 
+>
 > $$
-> \frac{\partial L}{\partial \hat{y}_i} = - \left( \frac{y_i}{\hat{y}_i} - \frac{1 - y_i}{1 - \hat{y}_i} \right) \\
-> \frac{\partial L}{\partial z} = \frac{\partial L}{\partial \hat{y}_i} \cdot \frac{\partial \hat{y}_i}{\partial z} \\
-> \frac{\partial L}{\partial z} = - \left( \frac{y_i}{\hat{y}_i} - \frac{1 - y_i}{1 - \hat{y}_i} \right) \cdot \hat{y}_i (1 - \hat{y}_i) \\
+> \frac{\partial L}{\partial \hat{y}_i} = - \left( \frac{y_i}{\hat{y}_i} - \frac{1 - y_i}{1 - \hat{y}_i} \right) 
+> $$
+> $$
+> \frac{\partial L}{\partial z} = \frac{\partial L}{\partial \hat{y}_i} \cdot \frac{\partial \hat{y}_i}{\partial z} 
+> $$
+> $$
+> \frac{\partial L}{\partial z} = - \left( \frac{y_i}{\hat{y}_i} - \frac{1 - y_i}{1 - \hat{y}_i} \right) \cdot \hat{y}_i (1 - \hat{y}_i) 
+> $$
+> $$
 > \frac{\partial L}{\partial z} = \hat{y}_i - y_i
 > $$
-> 
+>
 > Sigmoid Activation function gradient:
 >
-> 
+>
 > $$
 > \sigma(x) = \frac{1}{1 + e^{-x}} = (1 + e^{-x})^{-1} \\
 > \sigma'(x) = - (1 + e^{-x})^{-2} \cdot (-e^{-x}) = \frac{e^{-x}}{(1 + e^{-x})^2}=\sigma(x) \odot (1 - \sigma(x))
