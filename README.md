@@ -76,11 +76,13 @@ $$
 
 > NOTE: When solving regression problems,  $A3=Z_3$ 
 
-Calculate loss (assuming the Mean Squared Error (MSE) loss function or Cross Entropy Loss function is used)
+Calculate loss (assuming the Mean Squared Error (MSE) loss function or Cross Entropy (CE) Loss function is used)
 
 $$
-{MSE}\_\text{Loss} = \frac{1}{2m} \sum_{i=1}^m (\hat{y_i} - y_i)^2 \\
-or \\
+{MSE}\_\text{Loss} = \frac{1}{2m} \sum_{i=1}^m (\hat{y_i} - y_i)^2
+$$
+
+$$
 {CE}\_\text{Loss}= -\frac{1}{m} \sum_{i=1}^m \left[ y_i \log(\hat{y}_i) + (1 - y_i) \log(1 - \hat{y}_i) \right]
 $$
 
