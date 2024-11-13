@@ -83,13 +83,17 @@ $$
 $$
 
 Binary classification: 
+
 $$
 {CE}\_\text{Loss}= -\frac{1}{m} \sum_{i=1}^m \left[ y_i \log(\hat{y}_i) + (1 - y_i) \log(1 - \hat{y}_i) \right]
 $$
+
 Multi classification: 
+
 $$
 {CE}\_\text{Loss}= -\frac{1}{m} \sum_{i=1}^m y_i \log(\hat{y}_i)
 $$
+
 **Backward propagation**
 
 (Output Layer - Hidden Layer)
@@ -121,30 +125,40 @@ $$
 > $$
 > \frac{\partial L}{\partial \hat{y}_i} = - \left( \frac{y_i}{\hat{y}_i} - \frac{1 - y_i}{1 - \hat{y}_i} \right)
 > $$
+> 
 > $$
 > \frac{\partial L}{\partial z} = \frac{\partial L}{\partial \hat{y}_i} \cdot \frac{\partial \hat{y}_i}{\partial z} = - \left( \frac{y_i}{\hat{y}_i} - \frac{1 - y_i}{1 - \hat{y}_i} \right) \cdot \hat{y}_i (1 - \hat{y}_i)= \hat{y}_i - y_i
 > $$
+> 
 > Cross Entropy Loss function gradient (log x=ln x), when use softmax activation function:
-> $$
-> \frac{\partial L}{\partial z_j} = \frac{\partial L}{\partial \hat{y}_i} \cdot \frac{\partial \hat{y}_i}{\partial z_j} = \sum_{i=1}- \frac{y_i}{\hat{y_i}} \cdot \frac{\partial \hat{y}_i}{\partial z_j}  = (- \frac{y_i}{\hat{y_i}} \cdot \frac{\partial \hat{y}_i}{\partial z_j})_{i=j}+\sum_{i=1,i≠j}- \frac{y_i}{\hat{y_i}} \cdot \frac{\partial \hat{y}_i}{\partial z_j} \\\\\\ =- \frac{y_i}{\hat{y_i}}\cdot\hat{y_i}\cdot(1-\hat{y_j})+\sum_{i=1,i≠j}- \frac{y_i}{\hat{y_i}} \cdot -\hat{y_i}\hat{y_j}=-y_j+y_i\hat{y_j}+\sum_{i=1,i≠j}y_i\hat{y_j}=-y_j+\hat{y_j}\sum_{i=1}y_i=\hat{y_j}-y_j
-> $$
+> 
+> ![image](https://github.com/user-attachments/assets/de91a6d0-ab28-49b5-b1de-24c2873e316e)
+>
+> 
 > Sigmoid Activation function gradient:
 >
 > $$
 > \sigma(x) = \frac{1}{1 + e^{-x}} = (1 + e^{-x})^{-1} 
 > $$
+> 
 > $$
 > \sigma'(x) = - (1 + e^{-x})^{-2} \cdot (-e^{-x}) = \frac{e^{-x}}{(1 + e^{-x})^2}=\sigma(x) \odot (1 - \sigma(x))
 > $$
+> 
 > Softmax Activation function gradient:
+> 
 > $$
 > \sigma(x_i) = \frac{e^i}{\sum_{j=1} e^{x_j}} = \frac{e^i}{sum}
 > $$
+> 
 > when i=j:
+> 
 > $$
 > \sigma'(x_j) = \frac{sum * e^i - e^j * e^i}{(sum)^2}=\sigma(x_i)(1-\sigma(x_j))
 > $$
+> 
 > when i≠j:
+> 
 > $$
 > \sigma'(x_j) = \frac{sum * 0 - e^j * e^i}{(sum)^2} = - \sigma(x_i)\sigma(x_j)
 > $$
